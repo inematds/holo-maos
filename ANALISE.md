@@ -18,7 +18,8 @@ zoom e sinal de paz em manipulação de cartões de notas e modelos 3D.
 |---|---|
 | `python3 server.py` no Linux (spark-922b) | ✅ sobe na 4890, **só biblioteca padrão**, zero `pip install` |
 | `GET /`, `/api/notes`, `/api/props` | ✅ 200 — página de 88 KB, notas e 2 modelos `.glb` |
-| Bateria interna `?probe=1` no Chromium headless | ✅ **26/26 PASS**, nenhum erro de JS |
+| Página monta o deck (orbes + 3D) | ✅ sem erro de JS |
+| Bateria interna `?probe=1` no Chromium headless | ⚠️ **26/26 numa execução, 2/4 nas seguintes** — reproduzido também no código ORIGINAL, sem o nosso patch: o teste toca o cartão antes de a câmera mapear a tela. Defeito do harness do autor em navegador sem interface, não da tradução |
 | Tamanho real | 77 MB clonado (o peso é o wasm do MediaPipe + os `.glb`) |
 | Privacidade | ✅ MediaPipe **embarcado na pasta**, sem CDN, sem key, sem conta |
 
@@ -60,7 +61,7 @@ o tipo de trabalho que a gente já faz bem e barato.
 3. **Acessibilidade, não cosplay do Homem de Ferro.** Controlar a tela sem encostar no
    mouse tem leitura óbvia pra quem tem limitação motora ou dor no punho. Esse é o
    enquadramento que diferencia nosso conteúdo do "olha que legal" do YouTube.
-4. **Prova de que roda em Linux/GPU server**, com o 26/26 documentado.
+4. **Prova de que roda em Linux**, com o servidor e a página verificados aqui.
 
 ## 6. Formatos possíveis, com custo e o que cada um exige
 

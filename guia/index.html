@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOLO Mãos — controle a tela com as mãos, em português</title>
+<meta name="description" content="Adaptação em português do HOLO: sua webcam vira a interface. Belisque, arremesse e organize notas com as mãos. Roda 100% na sua máquina, sem nuvem, sem chave de API e sem conta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px 1fr;gap:16px;margin-bottom:26px}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🖐️</span> HOLO Mãos</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">O que é</a>
+    <a class="sec" href="#fluxo">Como funciona</a>
+    <a class="sec" href="#guia">Guia de uso</a>
+    <a class="sec" href="#exemplos">Exemplos</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/holo-maos" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Visão computacional no navegador · sem nuvem</span>
+      <h1>Sua webcam vira o <span class="amb">mouse</span>.</h1>
+      <p class="lead">Belisque um cartão no ar e arraste. Junte as duas mãos para dar zoom. Faça o sinal de paz e tudo volta ao lugar. Em português, e nada sai do seu computador.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Começar o guia</a>
+        <a class="btn ghost" href="https://github.com/inematds/holo-maos" target="_blank" rel="noopener">Ver no GitHub</a>
+      </div>
+    </div>
+    <figure><img src="assets/banner.jpg" alt="HOLO Mãos — controle a tela sem encostar em nada"></figure> <!-- banner via gerar-banner.sh; se falhou, use assets/hero.png -->
+  </div>
+</header>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">O que é</span>
+  <h2>Uma página, uma webcam, nenhuma mensalidade</h2>
+  <p class="sub">O reconhecimento das mãos acontece dentro do próprio navegador. Não existe servidor de IA no meio, nem cadastro, nem chave de API.</p>
+  <div class="grid g3">
+    <div class="card"><h3>🔒 Nada sai da sua máquina</h3><p>O MediaPipe do Google vem dentro da pasta do projeto — não é baixado na hora de usar. Funciona offline, e as imagens da câmera não chegam a servidor nenhum.</p></div>
+    <div class="card"><h3>🇧🇷 Tudo em português</h3><p>Legenda, avisos de câmera e o mordomo falando: 25 trechos traduzidos por um patch versionado. A voz usa o sintetizador do próprio computador, em pt-BR.</p></div>
+    <div class="card"><h3>⚙️ Dois comandos e acabou</h3><p>Python 3 e Chrome. Nenhum <code>pip install</code>, nenhuma dependência: o servidor tem 180 linhas e usa só a biblioteca padrão.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Como funciona</span>
+  <h2>Do gesto ao cartão, em cinco passos</h2>
+  <p class="sub">Todo o caminho acontece dentro da aba do navegador. O servidor Python só entrega a página e lê os seus arquivos de texto.</p>
+  <div class="flow">
+    <span>webcam</span><span class="arr">→</span>
+    <span>MediaPipe na página</span><span class="arr">→</span>
+    <span>21 pontos por mão</span><span class="arr">→</span>
+    <span>gesto reconhecido</span><span class="arr">→</span>
+    <span>o cartão reage</span>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><h3>O que o servidor faz</h3><p>Entrega a página, lista os arquivos <code>.md</code> da pasta que você apontar e devolve os modelos 3D. Subpastas viram orbes; arquivos soltos viram cartões.</p></div>
+    <div class="card"><h3>O que a página faz</h3><p>Lê as mãos, decide se houve belisco, arremesso, zoom ou sinal de paz, e aplica física de verdade — inércia, atrito e batida nas bordas.</p></div>
+    <div class="card"><h3>O que a IA NÃO faz</h3><p>Não há modelo de linguagem, não há nuvem e não há leitura do seu conteúdo. O único "modelo" é o rastreador de mãos, e ele roda local.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Pré-requisitos</span>
+  <h2>A lista inteira cabe em três linhas</h2>
+  <p class="sub">Testado no Linux (Ubuntu) em 21/09/2026. O autor original documenta Mac e Windows; roda nos três sem mudar nada.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Python 3</h3><p>Já vem no Mac e no Linux. No Windows, baixe em python.org. Nada além da biblioteca padrão.</p><pre><span class="c"># confira a versão</span>
+<span class="k">python3 --version</span></pre></div>
+    <div class="card"><h3>Google Chrome</h3><p>É o navegador onde o rastreamento roda melhor. Você vai precisar liberar a câmera uma vez.</p><pre><span class="c"># sem webcam? use o modo demonstração</span>
+<span class="s">http://localhost:4890/?sim=1</span></pre></div>
+    <div class="card"><h3>Git</h3><p>Só para baixar o projeto original, que fica num repositório separado (é dele o código do motor).</p><pre><span class="k">git --version</span></pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guia de uso · passo a passo</span>
+  <h2>Do zero à mão no ar</h2>
+  <p class="sub">Comandos reais, na ordem. Do começo ao fim leva cerca de dois minutos.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Baixe este repositório</h3>
+    <p>Ele traz a camada em português, as notas de exemplo e os scripts.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/holo-maos.git</span>
+<span class="k">cd</span> holo-maos</pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Traga o projeto original</h3>
+    <p>O motor é do Zubair Trabzada, licença MIT, e fica no repositório dele. Não copiamos os 77 MB — o script clona direto da fonte.</p>
+<pre><span class="k">bash</span> scripts/baixar-upstream.sh  <span class="c"># clona em upstream/</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Aplique a camada em português</h3>
+    <p>São 25 substituições exatas: legenda, avisos de câmera, falas do mordomo e a escolha da voz pt-BR. O script guarda o arquivo original ao lado (<code>holo.html.original</code>) e avisa se o autor mudou algum trecho, em vez de traduzir pela metade.</p>
+<pre><span class="k">python3</span> scripts/aplicar-ptbr.py
+<span class="c"># [ptbr] 25 trecho(s) traduzido(s), 0 perdido(s)</span>
+<span class="c"># [ptbr] holo.json apontando para .../notas-inema</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Suba o servidor</h3>
+    <p>Porta 4890. Se ela estiver ocupada, troque com <code>HOLO_PORT</code>.</p>
+<pre><span class="k">cd</span> upstream <span class="k">&amp;&amp; python3</span> server.py
+<span class="c"># porta ocupada?  HOLO_PORT=4891 python3 server.py</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Abra e levante a mão</h3>
+    <p>Libere a câmera quando o Chrome pedir. Acenda uma luz virada para você — isso resolve mais do que qualquer ajuste no código.</p>
+<pre><span class="s">http://localhost:4890</span>          <span class="c"># com câmera</span>
+<span class="s">http://localhost:4890/?sim=1</span>   <span class="c"># sem câmera: mãos sintéticas</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">6</div><div>
+    <h3>Aponte para as SUAS anotações</h3>
+    <p>Qualquer pasta com arquivos <code>.md</code> ou <code>.txt</code>. Subpastas viram orbes; arquivos soltos viram cartões na mesa.</p>
+<pre><span class="c"># upstream/holo.json</span>
+{<span class="s">"folder"</span>: <span class="s">"/caminho/para/suas/notas"</span>}</pre>
+  </div></div>
+
+  <div class="step"><div class="b">7</div><div>
+    <h3>Se o belisco não pegar, ajuste</h3>
+    <p>As quatro constantes que governam a sensibilidade ficam no topo do script, em <code>upstream/holo.html</code>.</p>
+<pre><span class="c">// número MAIOR = mais fácil de pegar</span>
+<span class="k">const</span> PINCH_IN = .30, PINCH_OUT = .42, PINCH_EARN = 2;
+<span class="k">const</span> AMP = 1.45;  <span class="c">// alcance do braço até a borda da tela</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">8</div><div>
+    <h3>Os gestos</h3>
+    <p>Se você decorar um só, decore o sinal de paz: ele desfaz qualquer bagunça.</p>
+<pre><span class="k">BELISCAR</span>          pega o cartão, arrasta, arremessa com inércia
+<span class="k">belisco rápido</span>    abre a pasta-orbe ou abre a nota
+<span class="k">arremessar</span>        para fora da tela = some (reabra a orbe)
+<span class="k">2 beliscos</span>        afasta/junta = zoom · torcendo = gira
+<span class="k">esticar 2 mãos</span>    grande = lê · amassado = a voz resume
+<span class="k">PAZ ✌ (segurar)</span>   arruma tudo de volta
+<span class="k">tecla F</span>           efeitos: puxar, empurrar, desenhar, palma
+<span class="k">tecla J</span>           modo mordomo: fica dourado e fala português
+<span class="k">tecla H</span>           desliga as mãos e usa só o mouse</pre>
+  </div></div>
+</div></section>
+
+<section id="exemplos"><div class="wrap">
+  <span class="chip">Exemplos</span>
+  <h2>Para que isso serve de verdade</h2>
+  <p class="sub">Como substituto do mouse no dia a dia, não serve: braço no ar cansa em minutos. O uso real é outro.</p>
+  <div class="ex">
+    <figure><img src="assets/tela-ptbr.jpg" alt="Tela do HOLO em português com as notas do INEMA"><figcaption>A mesa rodando aqui, em português, com as notas de exemplo do INEMA e um fóssil do Smithsonian no canto. Captura real, não montagem.</figcaption></figure>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><h3>🎤 Apresentação sem controle</h3><p>Passar slide com um gesto, de longe, sem apontador na mão.</p></div>
+    <div class="card"><h3>🏪 Totem e balcão</h3><p>Padaria, clínica, recepção: ninguém encosta na tela. Higiene sem leitor de gesto caro.</p></div>
+    <div class="card"><h3>♿ Acessibilidade</h3><p>Quem tem dor no punho ou limitação de movimento opera a tela sem mouse.</p></div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>O que já tem e o que vem</h2>
+  <p class="sub">Sem promessa do que não existe: abaixo, o estado real em 21/09/2026.</p>
+  <div class="phase"><div class="tag">Pronto</div><div class="d"><strong>Camada em português</strong><span>25 trechos traduzidos por patch versionado, voz pt-BR e notas de exemplo do INEMA. Reaplicável depois de atualizar o projeto original.</span></div></div>
+  <div class="phase"><div class="tag">Pronto</div><div class="d"><strong>Testado no Linux</strong><span>Servidor e endpoints respondendo, página carregando os orbes e os modelos 3D. A documentação original só menciona Mac e Windows.</span></div></div>
+  <div class="phase"><div class="tag">Em aberto</div><div class="d"><strong>Autoteste do autor instável fora do navegador real</strong><span>A bateria <code>?probe=1</code> passou 26/26 numa execução e depois passou a parar em 2/4 — no código original também, sem o nosso patch. É o teste tocando o cartão antes de a câmera mapear a tela, em navegador sem interface. Com câmera de verdade não atrapalha.</span></div></div>
+  <div class="phase"><div class="tag">Próximo</div><div class="d"><strong>Voz pelo inemaVOX</strong><span>Trocar o sintetizador do navegador por uma voz brasileira de verdade, para o modo mordomo soar natural.</span></div></div>
+  <div class="phase"><div class="tag">Próximo</div><div class="d"><strong>Modo apresentação</strong><span>Um gesto para avançar slide e outro para voltar — o uso que mais faz sentido fora da demonstração.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Python 3 (só stdlib)</div><div class="pill">MediaPipe · three.js</div><div class="pill">Chrome · sem API key</div>
+    <p style="margin-top:18px">HOLO Mãos · adaptação PT-BR do HOLO (Zubair Trabzada, MIT) ·
+      <a href="https://github.com/inematds/holo-maos">inematds/holo-maos</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='holo-maos-theme'; // troque holo-maos pelo nome do projeto
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>
