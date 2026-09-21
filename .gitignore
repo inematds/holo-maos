@@ -1,0 +1,4 @@
+# Código do autor original — clonado por scripts/baixar-upstream.sh, não versionado aqui
+upstream/
+# Material de referencia/fontes — fica so local, nunca no git
+fontes/
