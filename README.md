@@ -1,5 +1,7 @@
 # 🖐️ HOLO Mãos — controle a tela com as mãos, em português
 
+**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
+
 [![HOLO Mãos](guia/assets/banner.jpg)](https://inematds.github.io/holo-maos/guia/)
 
 ## 📖 Guia de uso
